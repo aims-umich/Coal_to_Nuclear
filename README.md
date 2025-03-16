@@ -10,7 +10,6 @@ Erdem, O. F., Radaideh, M. I. (2024). Multi-Objective Site Selection for Coal to
 
 To set up the environment for this project, follow these steps:
 
-
 ```bash
 # 1. Create a new conda environment with the .yml file
 conda create  -f C2N_env_environment.yml
@@ -26,8 +25,34 @@ pip install jupyter papermill
 
 The dataset has been acquired from: https://www.sciencedirect.com/science/article/pii/S2352484724002993
 
-- Step 1: The 5th sheet of the Excel dataset has been used for generating the dataset with unprocessed objective values. This dataset is located in the "Processing" folder, named as "coaldata.xlsx". Serial and parallel run scripts are used for generating the recorder.txt file from this dataset. 
+- Step 1: The "Relevant Attribute Values" sheet of the "Complete_Coal_Plant_Analysis_umich.xlsx" dataset has been used for generating the dataset with unprocessed objective values "coaldata.xlsx". This dataset is located in the "Coal_to_Nuclear/Processing" directory. Run the data processing script with either serial and parallel processing script:
 
-- Step 2: The "PCA" and "CCA" subdirectories are used for creating the results with dimensionality reduction. 
+```bash
+nohup python coal_single_parallel_run.py &
+```
 
-- Step 3: The Jupyter notebook in the "Postprocessing" directory is used for analyzing the data processing results, for identifying the best CPP sites, and visualizing the results to create the figures presented in the paper.
+Or:
+
+```bash
+nohup python coal_single_parallel_run.py &
+```
+
+These scripts create the "recorder.txt" file by using the dataset.
+
+- Step 2: The "Coal_to_Nuclear/Processing/PCA" subdirectory is used for creating the results with PCA dimensionality reduction method. 
+
+```bash
+nohup python coaltonuclear_PCA.py.py &
+```
+
+- Step 3: The "Coal_to_Nuclear/Processing/CCA" subdirectory is used for creating the results with CCA dimensionality reduction method. 
+
+```bash
+nohup python coaltonuclear_CCA.py.py &
+```
+
+- Step 4: The Jupyter notebook "post_processor.ipynb" in the "Coal_to_Nuclear/Postprocessing" directory is used for analyzing the data processing results in the "recorder.txt", for identifying the best CPP sites, and visualizing the results to create the figures presented in the paper.
+
+```bash
+nohup papermill create_diagonal_validation_plot.ipynb create_diagonal_validation_plot_out.ipynb &
+```
