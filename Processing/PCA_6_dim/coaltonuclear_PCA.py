@@ -8,6 +8,7 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from collections import defaultdict
 from mtools import sortNondominated
 from itertools import combinations
+from copy import deepcopy
 import joblib
 import time
 
