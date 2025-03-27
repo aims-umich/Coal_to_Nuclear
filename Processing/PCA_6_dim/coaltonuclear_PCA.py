@@ -7,7 +7,6 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from collections import defaultdict
 from mtools import sortNondominated
-from top_sorting import try_add_sorting
 from itertools import combinations
 import joblib
 import time
@@ -86,6 +85,16 @@ def comb_to_pareto(comb):
         pop[key].append(fit_res)
     pareto_front = sortNondominated(pop, len(pop),first_front_only=True)
     return pareto_front
+
+def try_add_sorting(array,individual):
+    #try adding individual to an existing sorting list [[index,value],[index,value]]
+    for i in range (len(array)):
+        if individual[1] > array[i][1]:
+            for j in range(len(array)-i):
+                if j!=0:
+                    array[len(array)-j]=deepcopy(array[len(array)-1-j])
+            array[i]=deepcopy(individual)
+            break
 
 out_data_indices=[i for i in range(0,6)]  #len(out_data_indices)
 master_distrib=[0]*266
